@@ -2,8 +2,14 @@
 
 using namespace v8;
 
-void Print(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  printf("I am a native addon and I AM ALIVE!\n");
+void Print(const Nan::FunctionCallbackInfo<Value>& info) {
+  Nan::MaybeLocal<String> str = Nan::To<String>(info[0]);
+  if (str.IsEmpty()) {
+    Nan::ThrowTypeError("Wrong arguments");
+    return;
+  }
+
+  printf("%s\n", *String::Utf8Value(str.ToLocalChecked()));
 }
 
 void Init(Local<Object> exports) {
