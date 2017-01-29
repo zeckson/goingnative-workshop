@@ -1,4 +1,6 @@
 const bindings = require('bindings');
 const addon = bindings('myaddon');
 
-console.log(addon.length(process.argv[2]));
+addon.delay(parseInt(process.argv[2], 10), function () {
+  console.log('Done!');
+});
