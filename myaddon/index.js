@@ -1,6 +1,13 @@
 const bindings = require('bindings');
 const addon = bindings('myaddon');
 
-addon.delay(parseInt(process.argv[2], 10), function () {
+const interval = setInterval(function () {
+  process.stdout.write('.')
+}, 50);
+
+addon.delay(process.argv[2], function () {
+  clearInterval(interval);
   console.log('Done!');
 });
+
+process.stdout.write('Waiting');
